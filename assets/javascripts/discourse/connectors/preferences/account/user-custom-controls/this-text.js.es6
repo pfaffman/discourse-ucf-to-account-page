@@ -1,15 +1,14 @@
 import { set } from "@ember/object";
 import EmberObject from "@ember/object";
 import discourseComputed from "discourse-common/utils/decorators";
-console.log('doing this thing');
+import { isEmpty } from "@ember/utils";
 
 export default {
-@discourseComputed("model.user_fields.@each.value")
-  publicUserFields() {
-    const siteUserFields = this.site.get("user_fields");
+setupComponent(attrs, component){
+  const siteUserFields = this.site.get("user_fields");
     if (!isEmpty(siteUserFields)) {
       const userFields = this.get("model.user_fields");
-      return siteUserFields
+      const publicUserFields = siteUserFields
         .filterBy("show_on_user_card", true)
         .sortBy("position")
         .map(field => {
@@ -18,6 +17,8 @@ export default {
           return isEmpty(value) ? null : EmberObject.create({ value, field });
         })
         .compact();
+
+        component.set('publicUserFields', publicUserFields);
     }
-  },
+}
 };
