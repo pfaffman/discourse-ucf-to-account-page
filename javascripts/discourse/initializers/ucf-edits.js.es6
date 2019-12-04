@@ -41,7 +41,6 @@ const ucfEdits = (api) => {
 
         actions:{
             save(){
-                console.log('in save');
                 this.set("saved", false);
 
                 this.model.setProperties({
