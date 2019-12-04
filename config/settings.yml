@@ -1,4 +1,0 @@
-plugins:
-  discourse_ucf_to_account_enabled:
-    default: true
-    client: true
